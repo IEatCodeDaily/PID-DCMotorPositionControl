@@ -1,0 +1,26 @@
+#ifndef N_SAMPLE
+#define N_SAMPLE 3
+#endif
+
+//== Define Pins ==//
+//Potentiometers
+#define OMEGA_FEEDBACK_PIN GPIO_NUM_36
+#define OMEGA_FEEDBACK_ADC ADC1_CHANNEL_0
+
+#define OMEGA_INPUT_PIN GPIO_NUM_39
+#define OMEGA_INPUT_ADC ADC1_CHANNEL_3
+
+#define KP_PIN GPIO_NUM_34
+#define KP_ADC ADC1_CHANNEL_6
+
+#define KI_PIN GPIO_NUM_35
+#define KI_ADC ADC1_CHANNEL_7
+
+#define KD_PIN GPIO_NUM_32
+#define KD_ADC ADC1_CHANNEL_4
+
+//Motors
+#define MOTOR_PWM GPIO_NUM_27
+#define MOTOR_IN1 GPIO_NUM_25
+#define MOTOR_IN2 GPIO_NUM_26
+
