@@ -11,7 +11,7 @@ static const char *DISPLAY = "DISPLAY";
 //Set Debug
 #define LOG_LEVEL_COEF ESP_LOG_INFO
 #define LOG_LEVEL_MOTOR ESP_LOG_INFO
-#define LOG_LEVEL_DISPLAY ESP_LOG_DEBUG
+#define LOG_LEVEL_DISPLAY ESP_LOG_INFO
 
 //FreeRTOS
 #include "freertos/FreeRTOS.h"
@@ -67,9 +67,9 @@ void coef_read(){
         coef[i] = adc_read(list_adc[i+2])/4095.0; //Normalized to 0-1
     }
     //Value adjustment
-    coef[0] = coef[0]*3;
-    coef[1] = coef[1]/100;
-    coef[2] = coef[2]*2;
+    coef[0] = coef[0]*2;
+    coef[1] = coef[1]/5000;
+    coef[2] = coef[2]*5;
 }
 
 //=============== PWM ================//
@@ -208,15 +208,15 @@ void task_display(void *pvParameters){
     ESP_LOGI(SYS, "Display initialized");
     while(true){
         ESP_LOGD(DISPLAY, "Updating display...");
-        lcd_clear_screen(&lcd_handle);
+        //lcd_clear_screen(&lcd_handle);
         
     
-        sprintf(buf,"error:%d", error);
+        sprintf(buf,"error:%d   ", error);
         lcd_write_str(&lcd_handle,buf);
         ESP_LOGD(DISPLAY, "Wrote to display: %s", buf);
 
         lcd_set_cursor(&lcd_handle, 0,1);
-        sprintf(buf,"K %.1f %.3f %.2f", coef[0], coef[1], coef[2]);
+        sprintf(buf,"K %.1f %s %.1f", coef[0], coef[1].substr(1,5), coef[2]);
         lcd_write_str(&lcd_handle, buf);
         ESP_LOGD(DISPLAY, "Wrote to display: %s", buf);
 
